@@ -33,6 +33,8 @@
 		useCSS: true,
 		preloadImages: 'visible',
 		responsive: true,
+		slideZIndexFadeIn: 51,
+		slideZIndexHidden: 0,
 		slideZIndex: 50,
 		wrapperClass: 'bx-wrapper',
 
@@ -233,7 +235,7 @@
 			if(slider.settings.mode == 'fade'){
 				slider.children.css({
 					position: 'absolute',
-					zIndex: 0,
+					zIndex: slider.settings.slideZIndexHidden,
 					display: 'none'
 				});
 				// prepare the z-index on the showing element
@@ -1150,9 +1152,9 @@
 					slider.viewport.animate({height: getViewportHeight()}, slider.settings.adaptiveHeightSpeed);
 				}
 				// fade out the visible child and reset its z-index value
-				slider.children.filter(':visible').fadeOut(slider.settings.speed).css({zIndex: 0});
+				slider.children.filter(':visible').fadeOut(slider.settings.speed).css({zIndex: slider.settings.slideZIndexHidden});
 				// fade in the newly requested slide
-				slider.children.eq(slider.active.index).css('zIndex', slider.settings.slideZIndex+1).fadeIn(slider.settings.speed, function(){
+				slider.children.eq(slider.active.index).css('zIndex', slider.settings.slideZIndexFadeIn).fadeIn(slider.settings.speed, function(){
 					$(this).css('zIndex', slider.settings.slideZIndex);
 					updateAfterSlideTransition();
 				});
